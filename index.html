@@ -13,9 +13,6 @@
 
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<script src="https://use.fontawesome.com/1174070f0b.js"></script>
-		<style>
-			#mySidebar{display:none;width:200px;right:0;}
-		</style>
 	</head>
 	<body>
 		<div class="w3-top w3-card"><a id="summit"></a>
@@ -32,14 +29,20 @@
 			</div>
 			<div id="brkmrks"></div>
 		</div>
-		<div id="menuModal" class="w3-modal"><div class="w3-modal-content">
-			<header class="w3-container w3-khaki"> 
-				<button auw3-hide="#menuModal" class="w3-button w3-display-topright w3-hover-red">&times;</button>
-				<h2>Brkmrks 0.0.0</h2>
-			</header>
-			<div auw3-toggle-show="#aboutBrkmrks" class="w3-container w3-button">About Brkmrks
+		<div id="menuModal" class="w3-modal"><div class="w3-modal-content w3-card-4">
+			<div class="w3-cell-row">
+				<div id="menuAdd" class="w3-container w3-cell w3-cell-middle w3-hover-green w3-green"><p><i class="fa fa-plus"></i> Add</p></div>
+				<div id="menuImport" class="w3-container w3-cell w3-cell-middle w3-hover-red"><p><i class="fa fa-google-plus"></i> Import</p></div>
+				<div id="menuAbout" class="w3-container w3-cell w3-cell-middle w3-hover-blue"><p><i class="fa fa-question-circle"></i> About</p></div>
 			</div>
-			<div id="aboutBrkmrks" class="w3-container" style="display: none;">
+			<div id="addBrkmrk" class="w3-container menuTab w3-topbar w3-border-green">
+				<p>Add</p>
+			</div>
+			<div id="importBrkmrks" class="w3-container menuTab w3-topbar w3-border-red">
+				<p>Import</p>
+			</div>
+			<div id="aboutBrkmrks" class="w3-container menuTab w3-topbar w3-border-blue">
+				<p><strong class="w3-large">Brkmrks 0.0.0</strong></p>
 				<p><a href="http://knowyourmeme.com/memes/ermahgerd" target="_blank">Ermahgerd!</a> A Simple UI for Persistent Bookmarks!</p>
 				<p>Powered by 
 					<a href="https://www.w3schools.com/w3css/" target="_blank">W3.CSS</a>, 
@@ -54,7 +57,7 @@
 			<footer class="w3-container w3-khaki">
 				<p><i class="fa fa-github"></i> <a href="https://github.com/nathanielwiley/brkmrks" target="_blank">GitHub Project</a> | 
 					Created by <a href="https://nathanielwiley.github.io/" target="_blank">Nathaniel Wiley</a> | 
-					Code licensed under <a href="https://github.com/nathanielwiley/brkmrks/blob/master/LICENSE" target="_blank">MIT License</a>
+					Licensed under <a href="https://github.com/nathanielwiley/brkmrks/blob/master/LICENSE" target="_blank">MIT License</a>
 				</p>
 			</footer>
 		</div></div>
@@ -67,5 +70,35 @@
 		<!-- Wiley JS
 		================================================== -->
 		<script src="https://nathanielwiley.github.io/js/wks.min.js"></script>
+		<script>
+			w3.hide('#importBrkmrks,#aboutBrkmrks');
+			document.getElementById('menuAdd').addEventListener('click',function(event){
+				w3.hide('.menuTab');
+				w3.show('#addBrkmrk');
+				w3.removeClass('#menuImport','w3-red');
+				w3.removeClass('#menuAbout','w3-blue')
+				w3.addClass('#menuAdd','w3-green');
+			});
+			document.getElementById('menuImport').addEventListener('click',function(event){
+				w3.hide('.menuTab');
+				w3.show('#importBrkmrks');
+				w3.removeClass('#menuAdd','w3-green');
+				w3.removeClass('#menuAbout','w3-blue')
+				w3.addClass('#menuImport','w3-red');
+			});
+			document.getElementById('menuAbout').addEventListener('click',function(event){
+				w3.hide('.menuTab');
+				w3.show('#aboutBrkmrks');
+				w3.removeClass('#menuImport','w3-red');
+				w3.removeClass('#menuAdd','w3-green')
+				w3.addClass('#menuAbout','w3-blue');
+			});
+			var menuModal = document.getElementById('menuModal');
+			window.onclick = function(event) {
+			  if (event.target == menuModal) {
+			    menuModal.style.display = "none";
+			  }
+			}
+		</script>
 	</body>
 </html>
