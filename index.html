@@ -29,7 +29,7 @@
 			</div>
 			<div id="brkmrks"></div>
 		</div>
-		<div id="menuModal" class="w3-modal"><div class="w3-modal-content w3-card-4">
+		<div id="menuModal" class="w3-modal" auw3-hide="#menuModal"><div class="w3-modal-content w3-card-4">
 			<div class="w3-cell-row">
 				<div id="menuAdd" class="w3-container w3-cell w3-cell-middle w3-hover-green w3-green"><p><i class="fa fa-plus"></i> Add</p></div>
 				<div id="menuImport" class="w3-container w3-cell w3-cell-middle w3-hover-red"><p><i class="fa fa-google-plus"></i> Import</p></div>
@@ -93,12 +93,6 @@
 				w3.removeClass('#menuAdd','w3-green')
 				w3.addClass('#menuAbout','w3-blue');
 			});
-			var menuModal = document.getElementById('menuModal');
-			window.onclick = function(event) {
-			  if (event.target == menuModal) {
-			    menuModal.style.display = "none";
-			  }
-			}
 		</script>
 	</body>
 </html>
