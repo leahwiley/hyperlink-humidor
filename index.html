@@ -31,17 +31,17 @@
 		</div>
 		<div id="menuModal" class="w3-modal" auw3-hide="#menuModal"><div class="w3-modal-content w3-card-4">
 			<div class="w3-cell-row">
-				<div id="menuAdd" class="w3-container w3-cell w3-cell-middle w3-hover-green w3-green"><p><i class="fa fa-plus"></i> Add</p></div>
-				<div id="menuImport" class="w3-container w3-cell w3-cell-middle w3-hover-red"><p><i class="fa fa-google-plus"></i> Import</p></div>
-				<div id="menuAbout" class="w3-container w3-cell w3-cell-middle w3-hover-blue"><p><i class="fa fa-question-circle"></i> About</p></div>
+				<div id="menuAdd" class="w3-container w3-cell w3-cell-middle w3-hover-green w3-green" auw3-hide=".menuTab" auw3-show="#addBrkmrk" auw3-add-class="#menuAdd,w3-green" auw3-remove-class="#menuImport,w3-red;#menuAbout,w3-blue"><p><i class="fa fa-plus"></i> Add</p></div>
+				<div id="menuImport" class="w3-container w3-cell w3-cell-middle w3-hover-red" auw3-hide=".menuTab" auw3-show="#importBrkmrks" auw3-add-class="#menuImport,w3-red" auw3-remove-class="#menuAdd,w3-green;#menuAbout,w3-blue"><p><i class="fa fa-google-plus"></i> Import</p></div>
+				<div id="menuAbout" class="w3-container w3-cell w3-cell-middle w3-hover-blue" auw3-hide=".menuTab" auw3-show="#aboutBrkmrks" auw3-add-class="#menuAbout,w3-blue" auw3-remove-class="#menuImport,w3-red;#menuAdd,w3-green"><p><i class="fa fa-question-circle"></i> About</p></div>
 			</div>
 			<div id="addBrkmrk" class="w3-container menuTab w3-topbar w3-border-green">
 				<p>Add</p>
 			</div>
-			<div id="importBrkmrks" class="w3-container menuTab w3-topbar w3-border-red">
+			<div id="importBrkmrks" class="AuW3-auto-hide w3-container menuTab w3-topbar w3-border-red">
 				<p>Import</p>
 			</div>
-			<div id="aboutBrkmrks" class="w3-container menuTab w3-topbar w3-border-blue">
+			<div id="aboutBrkmrks" class="AuW3-auto-hide w3-container menuTab w3-topbar w3-border-blue">
 				<p><strong class="w3-large">Brkmrks 0.0.0</strong></p>
 				<p><a href="http://knowyourmeme.com/memes/ermahgerd" target="_blank">Ermahgerd!</a> A Simple UI for Persistent Bookmarks!</p>
 				<p>Powered by 
@@ -61,38 +61,10 @@
 				</p>
 			</footer>
 		</div></div>
-	
-		<!-- jQuery and W3.JS JavaScript
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 		<script src="https://www.w3schools.com/lib/w3.js"></script>
-		<!-- Wiley JS
-		================================================== -->
 		<script src="https://nathanielwiley.github.io/js/wks.min.js"></script>
 		<script>
-			w3.hide('#importBrkmrks,#aboutBrkmrks');
-			document.getElementById('menuAdd').addEventListener('click',function(event){
-				w3.hide('.menuTab');
-				w3.show('#addBrkmrk');
-				w3.removeClass('#menuImport','w3-red');
-				w3.removeClass('#menuAbout','w3-blue')
-				w3.addClass('#menuAdd','w3-green');
-			});
-			document.getElementById('menuImport').addEventListener('click',function(event){
-				w3.hide('.menuTab');
-				w3.show('#importBrkmrks');
-				w3.removeClass('#menuAdd','w3-green');
-				w3.removeClass('#menuAbout','w3-blue')
-				w3.addClass('#menuImport','w3-red');
-			});
-			document.getElementById('menuAbout').addEventListener('click',function(event){
-				w3.hide('.menuTab');
-				w3.show('#aboutBrkmrks');
-				w3.removeClass('#menuImport','w3-red');
-				w3.removeClass('#menuAdd','w3-green')
-				w3.addClass('#menuAbout','w3-blue');
-			});
+			w3.getHttpObject('wiley.xml',function(data){console.log(data);});
 		</script>
 	</body>
 </html>
