@@ -72,7 +72,7 @@
 			var xslDoc = parser.parseFromString(xsl,"text/xml");
 			xsltProcessor.importStylesheet(xslDoc);
 			var resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
-			console.log(resultDocument);
+			console.log(JSON.parse(resultDocument));
 		</script>
 	</body>
 </html>
