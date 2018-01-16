@@ -36,9 +36,24 @@
 		},
 		import:function(xmlString){
 			if(!APP.xslt){
-				// fetch XSLT
+				var xhttp = new XMLHttpRequest();
+				xhttp.open('GET','src/xsl/brkmrks.xsl',false);
+				xhttp.send("");
+				APP.xslt = xhttp.responseXML;
 			}
-			// Parse Google XML string
+			if(!APP.parser) APP.parser = new DOMParser();
+			if(!APP.processor){
+				APP.processor = new XSLTProcessor();
+				APP.processor.importStylesheet(APP.xslt);
+			}
+			try{
+				var xmlDoc = APP.parser.parseFromString(xmlString,"text/xml");
+				var resultNode = APP.processor.transformToFragment(xmlDoc, document);
+				var aMrks = JSON.parse(resultNode.textContent);
+			} catch (err){
+				var aMrks = [];
+			}
+			console.log(aMrks);
 
 		},
 		dump:function(){return data;}
