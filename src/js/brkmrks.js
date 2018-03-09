@@ -10,6 +10,16 @@
 	var APP = {
 		version:function(){ return '0.0.0'; },
 		dump:function(){return [data,filterTags,filterText];},
+		render:function(){
+			if(data.length){
+				w3.hide('#bglogo');
+				w3.show('#brkmrks');
+				w3.displayObject('brkmrks',{links:data});
+			} else {
+				w3.show('#bglogo');
+				w3.hide('#brkmrks');
+			}
+		},
 		add:function(url,title,tags,ts){
 			var tempMrk = {
 				ts : ts || Date.now(),
@@ -60,5 +70,11 @@
 	if(hasStorage){
 		data = JSON.parse(localStorage.getItem('brkmrksdt'));
 	}
+	// APP.render();
 	return APP;
 })();
+
+/*
+$myapp.innerHTML += '<div id="app2" class="w3-row"><div w3-repeat="links" class="w3-col s12 m6 l3"><div class="w3-panel w3-border w3-margin-right w3-padding"><a href="{{url}}" target="_blank">{{title}}</a></div></div></div>';
+w3.displayObject('app2',{links:brkmrks.dump()[0].slice(4,8)})
+*/

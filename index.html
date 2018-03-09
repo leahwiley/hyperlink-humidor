@@ -27,7 +27,14 @@
 				<div class="w3-display-middle w3-text-light-grey"><i class="fa fa-5x fa-bookmark"></i></div>
 				<div class="w3-display-middle"><p>No Bookmarks Loaded</p></div>
 			</div>
-			<div id="brkmrks"></div>
+			<div id="brkmrks" class="w3-row">
+				<div w3-repeat="links" class="w3-col s12 m6 l3">
+					<div class="w3-panel w3-border w3-margin-right w3-padding">
+						<a href="{{url}}" target="_blank">{{title}}</a>
+					</div>
+				</div>
+			</div>
+			<div id="app"></div>
 		</div>
 		<div id="menuModal" class="w3-modal" auw3-hide="#menuModal"><div class="w3-modal-content w3-card-4">
 			<div class="w3-cell-row">
