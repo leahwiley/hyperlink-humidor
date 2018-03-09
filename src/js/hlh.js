@@ -1,11 +1,11 @@
-;var brkmrks = brkmrks || (function(){
+;var hlh = hlh || (function(){
 	var hasStorage = true,data = [],filterTags=[],filterText='',$app = document.getElementById('hlhAPP');
 	try{ localStorage; } catch (err) { hasStorage = false; }
 	function save(){
-		if(hasStorage){localStorage.setItem('brkmrksdt',JSON.stringify(data));}
+		if(hasStorage){localStorage.setItem('hlhdt',JSON.stringify(data));}
 		// update state?
 	}
-	if(hasStorage && localStorage.getItem('brkmrksdt') === null) save();
+	if(hasStorage && localStorage.getItem('hlhdt') === null) save();
 	var hlhXSLT = '<stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"><template match="/xml_api_reply/bookmarks">[<xsl:for-each select="bookmark">{"title":"<xsl:value-of select="title"/>","url":"<xsl:value-of select="url"/>","ts":"<xsl:value-of select="timestamp"/>","id":"<xsl:value-of select="id"/>","tags":"<xsl:for-each select="labels/label"><xsl:value-of select="."/><xsl:if test="position() != last()">,</xsl:if></xsl:for-each>"}<xsl:if test="position() != last()">,</xsl:if></xsl:for-each>]</template></stylesheet>',
 		$emptyMessage = '<div class="w3-display-middle w3-text-light-grey"><i class="fa fa-5x fa-bookmark"></i></div><div class="w3-display-middle"><p>No Bookmarks Loaded</p></div>',
 		APP = {
@@ -74,7 +74,7 @@
 		}
 	};
 	if(hasStorage){
-		data = JSON.parse(localStorage.getItem('brkmrksdt'));
+		data = JSON.parse(localStorage.getItem('hlhdt'));
 	}
 	APP.render();
 	return APP;
@@ -82,5 +82,5 @@
 
 /*
 $myapp.innerHTML += '<div id="app2" class="w3-row"><div w3-repeat="links" class="w3-col s12 m6 l3"><div class="w3-panel w3-border w3-margin-right w3-padding"><a href="{{url}}" target="_blank">{{title}}</a></div></div></div>';
-w3.displayObject('app2',{links:brkmrks.dump()[0].slice(4,8)})
+w3.displayObject('app2',{links:hlh.dump()[0].slice(4,8)})
 */

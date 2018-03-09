@@ -21,35 +21,21 @@
 				<button id="openMenu" class="w3-button w3-xxlarge w3-display-right fa fa-ellipsis-v" auw3-show="#menuModal"></button>
 			</div>
 		</div>
-		<br /><br />
-		<div class="w3-panel">
-			<div id="bglogo">
-				<div class="w3-display-middle w3-text-light-grey"><i class="fa fa-5x fa-bookmark"></i></div>
-				<div class="w3-display-middle"><p>No Bookmarks Loaded</p></div>
-			</div>
-			<div id="brkmrks" class="w3-row">
-				<div w3-repeat="links" class="w3-col s12 m6 l3">
-					<div class="w3-panel w3-border w3-margin-right w3-padding">
-						<a href="{{url}}" target="_blank">{{title}}</a>
-					</div>
-				</div>
-			</div>
-			<div id="app"></div>
-		</div>
+		<div class="w3-panel w3-yellow" id="hlhAPP"></div>
 		<div id="menuModal" class="w3-modal" auw3-hide="#menuModal"><div class="w3-modal-content w3-card-4">
 			<div class="w3-cell-row">
-				<div id="menuAdd" class="w3-container w3-cell w3-cell-middle w3-hover-green w3-green w3-padding-large" auw3-hide=".menuTab" auw3-show="#addBrkmrk" auw3-add-class="#menuAdd,w3-green" auw3-remove-class="#menuImport,w3-red;#menuAbout,w3-blue"><i class="fa fa-plus"></i> Add</div>
-				<div id="menuImport" class="w3-container w3-cell w3-cell-middle w3-hover-red w3-padding-large" auw3-hide=".menuTab" auw3-show="#importBrkmrks" auw3-add-class="#menuImport,w3-red" auw3-remove-class="#menuAdd,w3-green;#menuAbout,w3-blue"><i class="fa fa-google-plus"></i> Import</div>
-				<div id="menuAbout" class="w3-container w3-cell w3-cell-middle w3-hover-blue w3-padding-large" auw3-hide=".menuTab" auw3-show="#aboutBrkmrks" auw3-add-class="#menuAbout,w3-blue" auw3-remove-class="#menuImport,w3-red;#menuAdd,w3-green"><i class="fa fa-question-circle"></i> About</div>
+				<div id="menuAdd" class="w3-container w3-cell w3-cell-middle w3-hover-green w3-green w3-padding-large" auw3-hide=".menuTab" auw3-show="#addHLH" auw3-add-class="#menuAdd,w3-green" auw3-remove-class="#menuImport,w3-red;#menuAbout,w3-blue"><i class="fa fa-plus"></i> Add</div>
+				<div id="menuImport" class="w3-container w3-cell w3-cell-middle w3-hover-red w3-padding-large" auw3-hide=".menuTab" auw3-show="#importHLH" auw3-add-class="#menuImport,w3-red" auw3-remove-class="#menuAdd,w3-green;#menuAbout,w3-blue"><i class="fa fa-google-plus"></i> Import</div>
+				<div id="menuAbout" class="w3-container w3-cell w3-cell-middle w3-hover-blue w3-padding-large" auw3-hide=".menuTab" auw3-show="#aboutHLH" auw3-add-class="#menuAbout,w3-blue" auw3-remove-class="#menuImport,w3-red;#menuAdd,w3-green"><i class="fa fa-question-circle"></i> About</div>
 			</div>
-			<div id="addBrkmrk" class="w3-container menuTab w3-topbar w3-border-green">
+			<div id="addHLH" class="w3-container menuTab w3-topbar w3-border-green">
 				<p>Add</p>
 			</div>
-			<div id="importBrkmrks" class="AuW3-auto-hide w3-container menuTab w3-topbar w3-border-red">
+			<div id="importHLH" class="AuW3-auto-hide w3-container menuTab w3-topbar w3-border-red">
 				<p>Import</p>
 			</div>
-			<div id="aboutBrkmrks" class="AuW3-auto-hide w3-container menuTab w3-topbar w3-border-blue">
-				<p><strong class="w3-large">Hyperlink Humidor <span id="brkmrksVersion" auw3-display-object="v:brkmrks.version()">({{v}})</span></strong></p>
+			<div id="aboutHLH" class="AuW3-auto-hide w3-container menuTab w3-topbar w3-border-blue">
+				<p><strong class="w3-large">Hyperlink Humidor <span id="hlhVersion" auw3-display-object="v:hlh.version()">({{v}})</span></strong></p>
 				<p>A Chic UI for Persistent Bookmarks</p>
 				<p>Powered by 
 					<a href="https://www.w3schools.com/w3css/" target="_blank">W3.CSS</a>, 
@@ -64,13 +50,13 @@
 			<footer class="w3-container w3-khaki">
 				<p><i class="fa fa-github"></i> <a href="https://github.com/nathanielwiley/hyperlink-humidor/" target="_blank">GitHub Project</a> | 
 					Created by <a href="https://nathanielwiley.github.io/" target="_blank">Nathaniel Wiley</a> | 
-					Licensed under <a href="https://github.com/nathanielwiley/brkmrks/blob/master/LICENSE" target="_blank">MIT License</a>
+					Licensed under <a href="https://github.com/nathanielwiley/hyperlink-humidor/blob/master/LICENSE" target="_blank">MIT License</a>
 				</p>
 			</footer>
 		</div></div>
 		<script src="https://www.w3schools.com/lib/w3.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-		<script src="src/js/brkmrks.js"></script>
+		<script src="src/js/hlh.js"></script>
 		<script src="https://nathanielwiley.github.io/AuW3/auw3.js"></script>
 	</body>
 </html>
