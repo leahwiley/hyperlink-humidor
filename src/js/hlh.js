@@ -51,7 +51,7 @@
 	var hlhXSLT = '<stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"><template match="/xml_api_reply/bookmarks">[<xsl:for-each select="bookmark">{"title":"<xsl:value-of select="title"/>","url":"<xsl:value-of select="url"/>","ts":"<xsl:value-of select="timestamp"/>","id":"<xsl:value-of select="id"/>","tags":"<xsl:for-each select="labels/label"><xsl:value-of select="."/><xsl:if test="position() != last()">,</xsl:if></xsl:for-each>"}<xsl:if test="position() != last()">,</xsl:if></xsl:for-each>]</template></stylesheet>',
 		$emptyMessage = '<div class="w3-display-middle w3-text-light-grey"><i class="fa fa-5x fa-bookmark"></i></div><div class="w3-display-middle"><p>No Bookmarks Loaded</p></div>',
 		APP = {
-		version:function(){ return '0.0.3'; },
+		version:function(){ return '0.0.5'; },
 		dump:function(){return [data,filterTags,filterText];},
 		render:function(sample){$app.innerHTML = (data.length)?  redraw(sample) : $emptyMessage;},
 		add:function(url,title,tags,ts,redraw){
