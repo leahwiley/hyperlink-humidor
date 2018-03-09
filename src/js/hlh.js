@@ -6,38 +6,40 @@
 		if(hasStorage){localStorage.setItem('hlhdt',JSON.stringify(data));}
 		// update state?
 	}
-	function filterLinks(){
-		return _.filter(data,function(link){
+	function filterLinks(alphaSort,descSort){
+		alphaSort = alphaSort || true;
+		descSort = descSort || false;
+		var arr= _.sortBy(_.filter(data,function(link){
 			var tagMatch = (!_.isEmpty(filterTags))? !_.isEmpty(_.intersection(link.tags,filterTags)) : true,
 				urlMatch = link.url.includes(filterText),
 				titleMatch = link.title.includes(filterText);
 			return tagMatch && (urlMatch || titleMatch) ;
-		});
+		}),(alphaSort)? 'title' : 'ts');
+		if(descSort) {
+			return arr.reverse();
+		} else {
+			return arr;
+		}
 	}
-	function redraw(sample){
+	function redraw(sample,alphaSort,descSort){
 		sample = sample || false;
-		var aFiltered = (sample)? _.sample(data) : filterLinks(),
+		var aFiltered = (sample)? _.sample(data) : filterLinks(alphaSort,descSort),
 			$markup = '<br /><br /><br /><br />',
+			$rowOpen = '<div class="w3-row">',
 			linkCount = 0, linkPos = 0;
-			$markup = aFiltered.toString();
-		/*_.each(aFiltered,function(link){
+		_.each(aFiltered,function(link){
 			linkCount++;
 			linkPos++;
+			$markup += '<div class="w3-col s12 m6 l3">';
+			$markup += '<div class="w3-panel w3-border w3-padding w3-margin-right">';
+			$markup += '<a target="_blank" href="'+link.url+'">'+link.title+'</a></div></div>';
 			if(linkCount === 4){
 				linkCount = 0;
+				$markup += '</div>'+$rowOpen;
 			}
-		});*/
-		/*
-				<div w3-repeat="links" class="w3-col s12 m6 l3">
-					<div class="w3-panel w3-border w3-margin-right w3-padding">
-						<a href="{{url}}" target="_blank">{{title}}</a>
-					</div>
-				</div>
-			*/
-			/*
-$myapp.innerHTML += '<div id="app2" class="w3-row"><div w3-repeat="links" class="w3-col s12 m6 l3"><div class="w3-panel w3-border w3-margin-right w3-padding"><a href="{{url}}" target="_blank">{{title}}</a></div></div></div>';
-w3.displayObject('app2',{links:hlh.dump()[0].slice(4,8)})
-*/
+			if(linkPos === aFiltered.length) $markup += '</div>'+$rowOpen;
+		});
+		$markup += '</div>';
 		return $markup;
 	}
 	function drawRow(aLinks){
