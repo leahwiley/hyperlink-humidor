@@ -13,15 +13,40 @@
 
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<script src="https://use.fontawesome.com/1174070f0b.js"></script>
+		<style>
+			#hlhContainer {padding-left: 16px;}
+		</style>
 	</head>
 	<body>
-		<div class="w3-top w3-card"><a id="summit"></a>
+		<!---<div class="w3-top w3-card"><a id="summit"></a>
 			<div class="w3-container w3-khaki">
 				<h1>Hyperlink Humidor</h1>
 				<button id="openMenu" class="w3-button w3-xxlarge w3-display-right fa fa-ellipsis-v" auw3-show="#menuModal"></button>
 			</div>
+		</div>--->
+		<div id="hlhAPP">
+			<!---<br /><br /><br /><br />--->
+			<div id="hlhContainer">
+				<div class="w3-row"><div v-for="link in filterHLs()" class="w3-col s12 m6 l3">
+					<div class="w3-panel w3-border w3-padding w3-margin-right">
+						<a target="_blank" v-bind:href="link.url">{{ link.title }}</a><br />
+						<div class="w3-tiny">
+							<i class="fa fa-tags w3-text-grey"></i> 
+							<span class="w3-tag w3-khaki w3-hover-orange w3-margin-right" v-for="tag in link.tags" @click="addFilterTag(tag)">{{ tag }}</span>
+						</div>
+					</div>
+				</div></div>
+			</div>
+			<br /><br /><br /><br />
+			<div class="w3-card w3-bottom">
+				<div class="w3-padding w3-khaki">
+					<input type="text" id="hlhTxtFilter" v-model="filters.text" placeholder="Filter" />
+					<select id="hlhTagFilter">
+						<option v-for="tag in filterTags()" v-bind:value="tag">{{ tag }}</option>
+					</select>
+				</div>
+			</div>
 		</div>
-		<div class="w3-panel" id="hlhAPP"></div>
 		<div id="menuModal" class="w3-modal" auw3-hide="#menuModal"><div class="w3-modal-content w3-card-4">
 			<div class="w3-cell-row">
 				<div id="menuAdd" class="w3-container w3-cell w3-cell-middle w3-hover-green w3-green w3-padding-large" auw3-hide=".menuTab" auw3-show="#addHLH" auw3-add-class="#menuAdd,w3-green" auw3-remove-class="#menuImport,w3-red;#menuAbout,w3-blue"><i class="fa fa-plus"></i> Add</div>
@@ -56,8 +81,9 @@
 		</div></div>
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-		
 		<script src="src/js/hlh.js"></script>
+
+
 		<script src="https://www.w3schools.com/lib/w3.js"></script>               
 		<script src="https://nathanielwiley.github.io/AuW3/auw3.js"></script>
 	</body>

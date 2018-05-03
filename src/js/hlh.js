@@ -1,4 +1,88 @@
 ;var hlh = hlh || (function(){
+	var hlhVue = new Vue({
+		el:'#hlhAPP',
+		data:{
+			v:'0.1.0',
+			hls:JSON.parse(localStorage.getItem('hlhdt')),// ACTUAL POPULATION
+			tags:[],// ACTUAL POPULATION
+			sort:{alpha:true,asc:true},
+			filters:{tags:[],text:''}
+		},
+		methods:{
+			setAlphaSort:function(){ this.sort.alpha = true; },
+			setDateSort:function(){ this.sort.alpha = false; },
+			setAscSort:function(){ this.sort.asc = true; },
+			setDescSort:function(){	this.sort.asc = false; },
+			addTag:function(tag){
+				tag = tag || '';
+				if(typeof(tag) !== 'string') tag = '';
+				if(tag !== ''){
+					var hlh = this;
+					if(_.indexOf(hlh.tags,tag) < 0){
+						hlh.tags.push(tag);
+					}
+				}
+			},
+			addFilterTag:function(tag){
+				tag = tag || '';
+				if(typeof(tag) !== 'string') tag = '';
+				if(tag !== ''){
+					var hlh = this;
+					hlh.addTag(tag);//REMOVE AFTER ACTUAL POPULATION
+					if(_.indexOf(hlh.tags,tag) > -1 && _.indexOf(hlh.filters.tags,tag) < 0){
+						hlh.filters.tags.push(tag);
+					} else if(_.indexOf(hlh.tags,tag) > -1){
+						hlh.removeFilterTag(tag);
+					}
+				}				
+			},
+			removeFilterTag:function(tag){
+				tag = tag || '';
+				if(typeof(tag) !== 'string') tag = '';
+				if(tag !== ''){
+					var hlh = this;
+					var tagIndex = _.indexOf(hlh.filters.tags,tag)
+					if(tagIndex > -1){
+						hlh.filters.tags.splice(tagIndex,1);
+					}
+				}
+			},
+			filterHLs:function(sample){
+				sample = sample || false;
+				if(sample !== true) sample = false;
+				var hlh = this;
+				if(sample){
+					var arr = _.sample(hlh.hls,_.random(1,hlh.hls.length-1));
+					if(!_.isArray(arr)){
+						var tempArr = [];
+						tempArr.push(arr);
+						return tempArr;
+					}
+				} else {
+					var arr = _.sortBy(_.filter(hlh.hls,function(link){
+						var filterTags = hlh.filters.tags,
+							filterText = hlh.filters.text;
+						var tagMatch = (!_.isEmpty(filterTags))? _.intersection(link.tags,filterTags).length === filterTags.length : true,
+							urlMatch = link.url.includes(filterText),
+							titleMatch = link.title.includes(filterText);
+						return tagMatch && (urlMatch || titleMatch) ;
+					}),(hlh.sort.alpha)? 'title' : 'ts');
+				}
+				if(this.sort.asc) {
+					return arr;
+				} else {
+					return arr.reverse();
+				}
+			},
+			filterTags:function(){
+				var hlh = this;
+				return _.difference(hlh.filters.tags,hlh.tags);
+			}
+		}
+	});
+
+
+
 	var hasStorage = true,data = [],filterTags=[],filterText='',$app = document.getElementById('hlhAPP');
 	try{ localStorage; } catch (err) { hasStorage = false; }
 	if(hasStorage && localStorage.getItem('hlhdt') === null) save();
@@ -51,8 +135,9 @@
 	var hlhXSLT = '<stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"><template match="/xml_api_reply/bookmarks">[<xsl:for-each select="bookmark">{"title":"<xsl:value-of select="title"/>","url":"<xsl:value-of select="url"/>","ts":"<xsl:value-of select="timestamp"/>","id":"<xsl:value-of select="id"/>","tags":"<xsl:for-each select="labels/label"><xsl:value-of select="."/><xsl:if test="position() != last()">,</xsl:if></xsl:for-each>"}<xsl:if test="position() != last()">,</xsl:if></xsl:for-each>]</template></stylesheet>',
 		$emptyMessage = '<div class="w3-display-middle w3-text-light-grey"><i class="fa fa-5x fa-bookmark"></i></div><div class="w3-display-middle"><p>No Bookmarks Loaded</p></div>',
 		APP = {
+		vue: function(){return hlhVue;},
 		version:function(){ return '0.0.5'; },
-		dump:function(){return [data,filterTags,filterText];},
+		dump:function(){return [data,filterTags,filterText,hlhVue];},
 		render:function(sample){$app.innerHTML = (data.length)?  redraw(sample) : $emptyMessage;},
 		add:function(url,title,tags,ts,redraw){
 			redraw = redraw || true;
@@ -107,6 +192,6 @@
 	if(hasStorage){
 		data = JSON.parse(localStorage.getItem('hlhdt'));
 	}
-	APP.render();
+	// APP.render();
 	return APP;
 })();
