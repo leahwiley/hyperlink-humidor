@@ -1,8 +1,12 @@
 ;var hlh = hlh || (function(){
+	function defaultIconStyles(){
+		return {fa:true,'fa-2x':true};
+	};
 	var hlhVue = new Vue({
 		el:'#hlhAPP',
 		data:{
-			v:'0.1.0',
+			v:'0.1.5',
+			ui:0,
 			hls:[],
 			tags:[],
 			sort:{alpha:true,asc:true},
@@ -10,9 +14,27 @@
 		},
 		methods:{
 			setAlphaSort:function(){ this.sort.alpha = true; },
-			setDateSort:function(){ this.sort.alpha = false; },
+			setTimeSort:function(){ this.sort.alpha = false; },
 			setAscSort:function(){ this.sort.asc = true; },
 			setDescSort:function(){	this.sort.asc = false; },
+			styleAlphaButton:function(){
+				var oStyles = defaultIconStyles();
+				if(this.sort.asc){
+					oStyles['fa-sort-alpha-asc']=true;
+				} else {
+					oStyles['fa-sort-alpha-desc']=true;
+				}
+				return oStyles;
+			},
+			styleTimeButton:function(){
+				var oStyles = defaultIconStyles();
+				if(this.sort.asc){
+					oStyles['fa-sort-amount-asc']=true;
+				} else {
+					oStyles['fa-sort-amount-desc']=true;
+				}
+				return oStyles;
+			},
 			addHl:function(oHl){
 				if(_.isObject(oHl)){
 					var hlh=this,tempMrk={ts:Date.now(),url:'',abbr:'',title:'',tags:''};
@@ -115,6 +137,27 @@
 			filterTags:function(){
 				var hlh = this;
 				return _.difference(hlh.tags,hlh.filters.tags);
+			},
+			handleOrderOnClick:function(){
+				if(this.sort.asc){
+					this.setDescSort();
+				} else {
+					this.setAscSort();
+				}
+			},
+			handleAlphaClick:function(){
+				if(this.sort.alpha){
+					this.handleOrderOnClick();
+				} else {
+					this.setAlphaSort();
+				}
+			},
+			handleTimeClick:function(){
+				if(this.sort.alpha){
+					this.setTimeSort();
+				} else {
+					this.handleOrderOnClick();
+				}
 			}
 		}
 	});

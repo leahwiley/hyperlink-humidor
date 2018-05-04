@@ -16,13 +16,14 @@
 		<style>
 			.hlh--container {padding-left: 16px;}
 			.hlh--link-tags .w3-tag,.hlh--control-tags .w3-tag {cursor:pointer; margin-right:4px;}
+			.hlh--control-button {cursor: pointer;}
 		</style>
 	</head>
 	<body>
 		<!---<div class="w3-top w3-card"><a id="summit"></a>
 			<div class="w3-container w3-khaki">
 				<h1>Hyperlink Humidor</h1>
-				<button id="openMenu" class="w3-button w3-xxlarge w3-display-right fa fa-ellipsis-v" auw3-show="#menuModal"></button>
+				<button id="openMenu" class="w3-button w3-3xarge w3-display-right fa fa-ellipsis-v" auw3-show="#menuModal"></button>
 			</div>
 		</div>--->
 		<div id="hlhAPP">
@@ -44,14 +45,41 @@
 					</div>
 				</div></div>
 			</div>
+			
+			<h1>Hyperlink Humidor <span>{{ v }}</span></h1>
+
 			<br /><br /><br /><br />
 			<div class="hlh--controls w3-card w3-bottom">
 				<div class="w3-padding w3-khaki">
-					<i class="fa fa-search fa-lg"></i><input type="text" id="hlhTxtFilter" class="w3-input w3-border-0 w3-round-large" v-model="filters.text" placeholder="Search" />
-					<i class="fa fa-filter fa-lg"></i><select id="hlhTagFilter" class="w3-input w3-border-0 w3-round-large" v-model="filters.selected" @change="addFilterTag(filters.selected)">
-						<option value="">Filter by Tag</option>
-						<option v-for="tag in filterTags()" v-bind:value="tag">{{ tag }}</option>
-					</select>
+					<div v-if="ui === 1" class="w3-cell-row">
+						<div class="w3-cell w3-hover-text-white hlh--control-button" @click="ui = 0">
+							<i class="fa fa-caret-left fa-2x"></i>
+						</div>
+						<div class="w3-cell">
+							<input type="text" id="hlhTxtFilter" class="w3-input w3-border-0 w3-round-large w3-cell" v-model="filters.text" placeholder="Search" />
+						</div>
+					</div>
+					<div v-else-if="ui === 2" class="w3-cell-row">
+						<div class="w3-cell w3-hover-text-white hlh--control-button" @click="ui = 0">
+							<i class="fa fa-caret-left fa-2x"></i>
+						</div>
+						<div class="w3-cell">
+							<select id="hlhTagFilter" class="w3-input w3-border-0 w3-round-large w3-cell" v-model="filters.selected" @change="addFilterTag(filters.selected)">
+								<option value="">Filter by Tag</option>
+								<option v-for="tag in filterTags()" v-bind:value="tag">{{ tag }}</option>
+							</select>
+						</div>
+					</div>
+					<div v-else class="w3-cell-row">
+						<div class="w3-cell w3-hover-text-white hlh--control-button" @click="ui = 1"><i class="fa fa-search fa-2x"></i></div>
+						<div class="w3-cell w3-hover-text-white hlh--control-button" @click="ui = 2"><i class="fa fa-filter fa-2x"></i></div>
+						<div class="w3-cell w3-hover-text-white hlh--control-button">
+							<i v-bind:class="styleAlphaButton()" @click="handleAlphaClick()"></i>
+						</div>
+						<div class="w3-cell w3-hover-text-white hlh--control-button">
+							<i v-bind:class="styleTimeButton()" @click="handleTimeClick()"></i>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
