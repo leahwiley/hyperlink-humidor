@@ -136,7 +136,7 @@
 			},
 			filterTags:function(){
 				var hlh = this;
-				return _.difference(hlh.tags,hlh.filters.tags);
+				return _.difference(hlh.tags,hlh.filters.tags).sort();
 			},
 			handleOrderOnClick:function(){
 				if(this.sort.asc){
@@ -161,8 +161,16 @@
 			}
 		}
 	});
-
-_.each(JSON.parse(localStorage.getItem('hlhdt')),function(oHl){hlhVue.addHl(oHl);});
+	var aCredits = [
+		{url:"https://nathanielwiley.github.io/",title:'Copyright 2017-2018 Nathaniel Wiley',tags:'About Hyperlink Humidor'},
+		{url:"https://vuejs.org/",title:'Powered By Vue.js',tags:'About Hyperlink Humidor'},
+		{url:"https://fontawesome.com/",title:'Graphics By Font Awesome',tags:'About Hyperlink Humidor'},
+		{url:"https://github.com/nathanielwiley/hyperlink-humidor/",title:'GitHub Project',tags:'About Hyperlink Humidor'},
+		{url:"https://www.w3schools.com/w3css/",title:'Powered By W3.CSS',tags:'About Hyperlink Humidor'},
+		{url:"https://github.com/nathanielwiley/hyperlink-humidor/blob/master/LICENSE",title:"Released under the MIT License",tags:"About Hyperlink Humidor"}
+	];
+	_.each(aCredits,function(oHl){hlhVue.addHl(oHl);});
+	if(typeof(hlhdemo) !== 'undefined') _.each(hlhdemo,function(oHl){hlhVue.addHl(oHl);});
 
 
 	var hasStorage = true,data = [],filterTags=[],filterText='',$app = document.getElementById('hlhAPP');
