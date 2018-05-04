@@ -6,7 +6,7 @@
 			hls:[],
 			tags:[],
 			sort:{alpha:true,asc:true},
-			filters:{tags:[],text:''}
+			filters:{tags:[],text:'',selected:''}
 		},
 		methods:{
 			setAlphaSort:function(){ this.sort.alpha = true; },
@@ -63,7 +63,6 @@
 				}
 				if(tag !== ''){
 					var hlh = this;
-					hlh.addTag(tag);//REMOVE AFTER ACTUAL POPULATION
 					if(_.indexOf(hlh.tags,tag) > -1 && _.indexOf(hlh.filters.tags,tag) < 0){
 						hlh.filters.tags.push(tag);
 					} else if(_.indexOf(hlh.tags,tag) > -1){
@@ -119,6 +118,7 @@
 			}
 		}
 	});
+
 _.each(JSON.parse(localStorage.getItem('hlhdt')),function(oHl){hlhVue.addHl(oHl);});
 
 

@@ -15,7 +15,7 @@
 		<script src="https://use.fontawesome.com/1174070f0b.js"></script>
 		<style>
 			.hlh--container {padding-left: 16px;}
-			.hlh--link-tags .w3-tag {cursor:pointer; margin-right:4px;}
+			.hlh--link-tags .w3-tag,.hlh--control-tags .w3-tag {cursor:pointer; margin-right:4px;}
 		</style>
 	</head>
 	<body>
@@ -43,14 +43,19 @@
 			</div>
 			<br /><br /><br /><br />
 			<div class="hlh--controls w3-card w3-bottom">
+				<div class="hlh--control-tags w3-small w3-light-grey w3-padding-small">
+					<span v-for="tag in filters.tags" class="w3-tag w3-round w3-hover-red" @click="removeFilterTag(tag)">{{ tag }} &times;</span>
+				</div>
 				<div class="w3-padding w3-khaki">
-					<input type="text" id="hlhTxtFilter" v-model="filters.text" placeholder="Filter" />
-					<select id="hlhTagFilter">
+					<i class="fa fa-search fa-lg"></i><input type="text" id="hlhTxtFilter" class="w3-input w3-border-0 w3-round-large" v-model="filters.text" placeholder="Search" />
+					<i class="fa fa-filter fa-lg"></i><select id="hlhTagFilter" class="w3-input w3-border-0 w3-round-large" v-model="filters.selected" @change="addFilterTag(filters.selected)">
+						<option value="">Filter by Tag</option>
 						<option v-for="tag in filterTags()" v-bind:value="tag">{{ tag }}</option>
 					</select>
 				</div>
 			</div>
 		</div>
+
 		<div id="menuModal" class="w3-modal" auw3-hide="#menuModal"><div class="w3-modal-content w3-card-4">
 			<div class="w3-cell-row">
 				<div id="menuAdd" class="w3-container w3-cell w3-cell-middle w3-hover-green w3-green w3-padding-large" auw3-hide=".menuTab" auw3-show="#addHLH" auw3-add-class="#menuAdd,w3-green" auw3-remove-class="#menuImport,w3-red;#menuAbout,w3-blue"><i class="fa fa-plus"></i> Add</div>
