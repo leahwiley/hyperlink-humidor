@@ -27,9 +27,12 @@
 		</div>--->
 		<div id="hlhAPP">
 			<!---<br /><br /><br /><br />--->
+			<div class="hlh--control-tags w3-small w3-padding">
+				<span v-for="tag in filters.tags" class="w3-tag w3-round w3-hover-red" @click="removeFilterTag(tag)">{{ tag }} &times;</span>
+			</div>
 			<div class="hlh--container">
 				<div class="w3-row"><div v-for="link in filterHLs()" class="w3-col s12 m6 l3">
-					<div class="w3-panel w3-border w3-padding w3-margin-right">
+					<div class="w3-border w3-padding w3-margin-bottom w3-margin-right">
 						<a target="_blank" v-bind:href="link.url">{{ link.title }}</a>
 						<div class="w3-tiny w3-text-grey">
 							<i class="fa fa-link"></i> {{ link.abbr }}
@@ -43,9 +46,6 @@
 			</div>
 			<br /><br /><br /><br />
 			<div class="hlh--controls w3-card w3-bottom">
-				<div class="hlh--control-tags w3-small w3-light-grey w3-padding-small">
-					<span v-for="tag in filters.tags" class="w3-tag w3-round w3-hover-red" @click="removeFilterTag(tag)">{{ tag }} &times;</span>
-				</div>
 				<div class="w3-padding w3-khaki">
 					<i class="fa fa-search fa-lg"></i><input type="text" id="hlhTxtFilter" class="w3-input w3-border-0 w3-round-large" v-model="filters.text" placeholder="Search" />
 					<i class="fa fa-filter fa-lg"></i><select id="hlhTagFilter" class="w3-input w3-border-0 w3-round-large" v-model="filters.selected" @change="addFilterTag(filters.selected)">
