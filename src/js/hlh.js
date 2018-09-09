@@ -5,7 +5,7 @@
 	var hlhVue = new Vue({
 		el:'#hlhAPP',
 		data:{
-			v:'0.1.6',
+			v:'0.1.7',
 			ui:0,
 			hls:[],
 			tags:[],
@@ -131,7 +131,8 @@
 						var tagMatch = (!_.isEmpty(filterTags))? _.intersection(link.tags,filterTags).length === filterTags.length : true,
 							urlMatch = link.url.includes(filterText),
 							titleMatch = link.title.includes(filterText);
-						return tagMatch && (urlMatch || titleMatch) ;
+						var tagStringMatch = link.tags.toString().toLowerCase().includes(filterText.toLowerCase());
+						return tagMatch && (urlMatch || titleMatch || tagStringMatch) ;
 					}),(hlh.sort.alpha)? 'title' : 'ts');
 				}
 				if(this.sort.asc) {
@@ -170,59 +171,19 @@
 
 	var hasStorage = true,data = [],filterTags=[],filterText='',$app = document.getElementById('hlhAPP');
 	try{ localStorage; } catch (err) { hasStorage = false; }
+	if(disableStorage) hasStorage = false;
 	if(hasStorage && localStorage.getItem('hlhdt') === null) save();
 	function save(){
 		if(hasStorage){localStorage.setItem('hlhdt',JSON.stringify(data));}
 		// update state?
 	}
-	function filterLinks(alphaSort,descSort){
-		alphaSort = alphaSort || true;
-		descSort = descSort || false;
-		var arr= _.sortBy(_.filter(data,function(link){
-			var tagMatch = (!_.isEmpty(filterTags))? !_.isEmpty(_.intersection(link.tags,filterTags)) : true,
-				urlMatch = link.url.includes(filterText),
-				titleMatch = link.title.includes(filterText);
-			return tagMatch && (urlMatch || titleMatch) ;
-		}),(alphaSort)? 'title' : 'ts');
-		if(descSort) {
-			return arr.reverse();
-		} else {
-			return arr;
-		}
-	}
-	function redraw(sample,alphaSort,descSort){
-		sample = sample || false;
-		var aFiltered = (sample)? _.sample(data) : filterLinks(alphaSort,descSort),
-			$markup = '<br /><br /><br /><br />',
-			$rowOpen = '<div class="w3-row">',
-			linkCount = 0, linkPos = 0;
-		_.each(aFiltered,function(link){
-			linkCount++;
-			linkPos++;
-			$markup += '<div class="w3-col s12 m6 l3">';
-			$markup += '<div class="w3-panel w3-border w3-padding w3-margin-right">';
-			$markup += '<a target="_blank" href="'+link.url+'">'+link.title+'</a></div></div>';
-			if(linkCount === 4){
-				linkCount = 0;
-				$markup += '</div>'+$rowOpen;
-			}
-			if(linkPos === aFiltered.length) $markup += '</div>'+$rowOpen;
-		});
-		$markup += '</div>';
-		return $markup;
-	}
-	function drawRow(aLinks){
-		aLinks = aLinks || [];
-	}
-	function drawCol(link){
-
-	}
+	
 	var hlhXSLT = '<stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"><template match="/xml_api_reply/bookmarks">[<xsl:for-each select="bookmark">{"title":"<xsl:value-of select="title"/>","url":"<xsl:value-of select="url"/>","ts":"<xsl:value-of select="timestamp"/>","id":"<xsl:value-of select="id"/>","tags":"<xsl:for-each select="labels/label"><xsl:value-of select="."/><xsl:if test="position() != last()">,</xsl:if></xsl:for-each>"}<xsl:if test="position() != last()">,</xsl:if></xsl:for-each>]</template></stylesheet>',
 		$emptyMessage = '<div class="w3-display-middle w3-text-light-grey"><i class="fa fa-5x fa-bookmark"></i></div><div class="w3-display-middle"><p>No Bookmarks Loaded</p></div>',
 		APP = {
 		vue: function(){return hlhVue;},
-		version:function(){ return '0.0.5'; },
-		dump:function(){return [data,filterTags,filterText,hlhVue];},
+		version:function(){ return hlhVue.v; },
+		dump:function(){return [data,hlhVue.filters.tags,hlhVue.filters.text];},
 		render:function(sample){$app.innerHTML = (data.length)?  redraw(sample) : $emptyMessage;},
 		add:function(url,title,tags,ts,redraw){
 			redraw = redraw || true;
