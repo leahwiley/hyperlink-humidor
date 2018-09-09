@@ -19,19 +19,25 @@
 			setDescSort:function(){	this.sort.asc = false; },
 			styleAlphaButton:function(){
 				var oStyles = defaultIconStyles();
+				oStyles['fas']=true;
 				if(this.sort.asc){
 					oStyles['fa-sort-alpha-asc']=true;
+					oStyles['fa-sort-alpha-down']=true;
 				} else {
 					oStyles['fa-sort-alpha-desc']=true;
+					oStyles['fa-sort-alpha-up']=true;
 				}
 				return oStyles;
 			},
 			styleTimeButton:function(){
 				var oStyles = defaultIconStyles();
+				oStyles['fas']=true;
 				if(this.sort.asc){
 					oStyles['fa-sort-amount-asc']=true;
+					oStyles['fa-sort-amount-down']=true;
 				} else {
 					oStyles['fa-sort-amount-desc']=true;
+					oStyles['fa-sort-amount-up']=true;
 				}
 				return oStyles;
 			},
