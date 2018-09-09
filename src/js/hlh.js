@@ -171,7 +171,7 @@
 
 	var hasStorage = true,data = [],filterTags=[],filterText='',$app = document.getElementById('hlhAPP');
 	try{ localStorage; } catch (err) { hasStorage = false; }
-	if(disableStorage) hasStorage = false;
+	if(typeof(disableStorage) !== 'undefined') hasStorage = false;
 	if(hasStorage && localStorage.getItem('hlhdt') === null) save();
 	function save(){
 		if(hasStorage){localStorage.setItem('hlhdt',JSON.stringify(data));}
