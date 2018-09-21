@@ -5,7 +5,7 @@
 	var hlhVue = new Vue({
 		el:'#hlhAPP',
 		data:{
-			v:'0.1.7',
+			v:'0.1.8',
 			ui:0,
 			hls:[],
 			tags:[],
@@ -129,8 +129,8 @@
 						var filterTags = hlh.filters.tags,
 							filterText = hlh.filters.text;
 						var tagMatch = (!_.isEmpty(filterTags))? _.intersection(link.tags,filterTags).length === filterTags.length : true,
-							urlMatch = link.url.includes(filterText),
-							titleMatch = link.title.includes(filterText);
+							urlMatch = link.url.toLowerCase().includes(filterText.toLowerCase()),
+							titleMatch = link.title.toLowerCase().includes(filterText.toLowerCase());
 						var tagStringMatch = link.tags.toString().toLowerCase().includes(filterText.toLowerCase());
 						return tagMatch && (urlMatch || titleMatch || tagStringMatch) ;
 					}),(hlh.sort.alpha)? 'title' : 'ts');
